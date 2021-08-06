@@ -1,0 +1,22 @@
+$theme-colors: (
+  "qPrimary": #98D7C2,
+  "qSecondary": #DDFFE7,
+  "qDark": #167D7F,
+  "qDarkSecondary": #29A0B1,
+);
+
+@import '~bootstrap/scss/bootstrap';
+//
+.modal-title {
+  text-align: center;
+  width: 100%;
+}
+
+.tDarkSecondary {
+  color: white;
+}
+
+.bgGradient {
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(243,255,246,1) 0%, rgba(221,255,231,1) 100%);
+}

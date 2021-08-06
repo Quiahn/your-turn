@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Your Turn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Do not add `link` tags-->
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Do not add `script` tags-->
+  <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
+  <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
+</head>
+
+<!-- LANDING PAGE -->
+
+<body>
+  <div id="landing-page">
+
+    <button type="button" id="sign-up-modal-btn" class="btn btn-qDark" data-bs-toggle="modal"
+      data-bs-target="#signUpModal">
+      Sign up
+    </button>
+
+    <button type="button" id="log-in-modal-btn" class="btn btn-qDark" data-bs-toggle="modal"
+      data-bs-target="#logInModal">
+      Log in
+    </button>
+  </div>
+
+  <!-- SIGN UP -->
+
+  <div id="sign-up-form">
+    <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-qDark border">
+            <h5 class="modal-title text-white" id="signUpModalLabel">Sign Up</h5>
+          </div>
+          <div class="modal-body text-center">
+            <p class="error-msg"></p>
+
+            <form>
+              <label for="sigm-up-username" class="mt-2">Username</label> <br>
+              <input type="text" name="credentials[username]" id="sign-up-username" placeholder="John@Doe.com"
+                class="m-2" required>
+              <br>
+
+              <label for="sign-up-password" class="mt-2">Password</label> <br>
+              <input type="password" name="credentials[password]" id="sign-up-password" placeholder="********"
+                class="m-2" required>
+              <br>
+
+              <label for="sign-up-password-confirm" class="mt-2">Confirm Password</label> <br>
+              <input type="password" name="credentials[password_confirmation]" id="sign-up-password-confirm"
+                placeholder="********" class="m-2" required>
+              <br>
+
+              <button type="submit" class="btn btn-qDark mt-4 m-2" id="signUpSubmit">Submit</button>
+
+              <button type="button" class="btn btn-qDarkSecondary tDarkSecondary mt-4 m-2"
+                data-bs-dismiss="modal">Close</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOG IN -->
+
+  <div id="log-in-form">
+    <div class="modal fade" id="logInModal" tabindex="-1" aria-labelledby="logInModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-qDark border">
+            <h5 class="modal-title text-white" id="logInModalLabel">Log In</h5>
+          </div>
+          <div class="modal-body text-center">
+            <p class="error-msg"></p>
+
+            <form>
+              <label for="log-in-username" class="mt-2">Username</label> <br>
+              <input type="text" name="credentials[username]" id="log-in-username" placeholder="John@Doe.com"
+                class="m-2" required>
+              <br>
+
+              <label for="log-in-password" class="mt-2">Password</label> <br>
+              <input type="password" name="credentials[password]" id="log-in-password" placeholder="********"
+                class="m-2" required>
+              <br>
+
+              <button type="submit" class="btn btn-qDark mt-4 m-2" id="log-in-submit">Submit</button>
+
+              <button type="button" class="btn btn-qDarkSecondary tDarkSecondary mt-4 m-2"
+                data-bs-dismiss="modal">Close</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
