@@ -1,4 +1,3 @@
-const store = require('./store')
 const config = require('./config')
 
 const signUp = (data) => {
@@ -13,7 +12,7 @@ const signUp = (data) => {
 const logIn = (data) => {
   console.log('Logging In!')
   return $.ajax({
-    url: config.apiUrl + '/log-in',
+    url: config.apiUrl + '/sign-in',
     method: 'POST',
     data: data
   })
