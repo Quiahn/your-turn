@@ -1,4 +1,5 @@
 const config = require('./config')
+const store = require('./store')
 
 const signUp = (data) => {
   console.log('Signing Up!')
@@ -18,17 +19,50 @@ const logIn = (data) => {
   })
 }
 
-const logOut = (data) => {
-  console.log('Signing Up!')
+const checkUsername = () => {
+  console.log('Checking Username!')
   return $.ajax({
-    url: config.apiUrl + '/sign-up',
+    url: config.apiUrl + '/users',
+    method: 'GET'
+  })
+}
+
+const postSubmit = (postData) => {
+  console.log('Posting!')
+  return $.ajax({
+    url: config.apiUrl + '/posts',
     method: 'POST',
-    data: data
+    headers: {
+      Authorization: 'Bearer ' + store.token
+    },
+    data: postData
+  })
+}
+
+const getPost = () => {
+  console.log('Getting Posts!')
+  return $.ajax({
+    url: config.apiUrl + '/posts',
+    method: 'GET'
+  })
+}
+
+const showUserPost = () => {
+  console.log('Checking If The User Has A Post!')
+  return $.ajax({
+    url: config.apiUrl + '/posts/' + store.userId,
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + store.token
+    }
   })
 }
 
 module.exports = {
   signUp,
   logIn,
-  logOut
+  checkUsername,
+  postSubmit,
+  getPost,
+  showUserPost
 }

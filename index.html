@@ -39,13 +39,15 @@
               <h5 class="modal-title text-white" id="signUpModalLabel">Sign Up</h5>
             </div>
             <div class="modal-body text-center">
-              <p class="error-msg"></p>
+              <p id="sign-up-error-msg"></p>
 
               <form>
-                <label for="sigm-up-username" class="mt-2">Username</label> <br>
-                <input type="text" name="credentials[username]" id="sign-up-username" placeholder="John@Doe.com"
-                  class="m-2" required>
+                <label for="sign-up-username" class="mt-2">Username</label> <br>
+                <input type="text" name="credentials[username]" id="sign-up-username" placeholder="John Doe" class="m-2"
+                  required>
                 <br>
+
+                <p id="user-available" class="text-muted m-0"></p>
 
                 <label for="sign-up-password" class="mt-2">Password</label> <br>
                 <input type="password" name="credentials[password]" id="sign-up-password" placeholder="********"
@@ -57,7 +59,7 @@
                   placeholder="********" class="m-2" required>
                 <br>
 
-                <button type="submit" class="btn btn-qDark mt-4 m-2" id="sign-up-submit">Submit</button>
+                <button type="submit" class="btn btn-qDark mt-4 m-2" id="sign-up-submit" disabled>Submit</button>
 
                 <button type="button" class="btn btn-qDarkSecondary tDarkSecondary mt-4 m-2"
                   data-bs-dismiss="modal">Close</button>
@@ -78,12 +80,12 @@
               <h5 class="modal-title text-white" id="logInModalLabel">Log In</h5>
             </div>
             <div class="modal-body text-center">
-              <p class="error-msg"></p>
+              <p id="log-in-error-msg"></p>
 
               <form>
                 <label for="log-in-username" class="mt-2">Username</label> <br>
-                <input type="text" name="credentials[username]" id="log-in-username" placeholder="John@Doe.com"
-                  class="m-2" required>
+                <input type="text" name="credentials[username]" id="log-in-username" placeholder="John Doe" class="m-2"
+                  required>
                 <br>
 
                 <label for="log-in-password" class="mt-2">Password</label> <br>
@@ -106,10 +108,52 @@
 
   <!-- HOME PAGE -->
 
-  <div id="home-page">
+  <div id="home-page" class="text-center">
+
+    <div class="bg-qSecondary border border-qPrimary">
+      <div class="d-flex justify-content-end align-items-center p-3">
+        <p class="h4 mx-auto position-absolute start-50">LOGO</p>
+        <div class="d-flex">
+          <p id="signed-in-as" class="h6 d-flex mx-5 my-auto">Signed in as: Quiahn</p>
+          <button class="btn btn-qDark" id="log-out-btn">Log Out</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container p-5">
+
+      <div class="row">
+        <div class="col">
+          <p id="welcome-msg" class="h3 d-flex justify-content-start">Quiahn</p>
+          <label for="post-input" class="h6 d-flex text-muted p-0 m-0">Post</label>
+          <textarea name="post-content" id="post-input" rows="3"
+            class="form-control border border-qPrimary shadow-sm"></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+
+        </div>
+      </div>
+
+    </div>
+
     <p>chicken</p>
-    <label for="post"></label>
-    <input type="text" name="" id="">
+    <p id="error-msg"></p>
+    <form id="post-form" class="div-group">
+      <textarea name="post-content" id="post-input" rows="3"
+        class="form-control border border-qPrimary shadow-sm"></textarea>
+      <input class="btn btn-qPrimary" type="submit" value="Post">
+    </form>
+
+
+
+    <button id="check-user">Check user</button>
+    <div id="posts-div">
+
+    </div>
+
   </div>
 </body>
 
