@@ -33,7 +33,7 @@ const postSubmit = (postData) => {
     url: config.apiUrl + '/posts',
     method: 'POST',
     headers: {
-      Authorization: 'Bearer ' + store.token
+      Authorization: 'Bearer ' + store.user.token
     },
     data: postData
   })
@@ -50,11 +50,46 @@ const getPost = () => {
 const showUserPost = () => {
   console.log('Checking If The User Has A Post!')
   return $.ajax({
-    url: config.apiUrl + '/posts/' + store.userId,
+    url: config.apiUrl + '/posts/' + store.user._id,
     method: 'GET',
     headers: {
-      Authorization: 'Bearer ' + store.token
+      Authorization: 'Bearer ' + store.user.token
     }
+  })
+}
+
+const changePassword = (passwordData) => {
+  console.log('Changing Password!')
+  return $.ajax({
+    url: config.apiUrl + '/change-password',
+    method: 'PATCH',
+    headers: {
+      Authorization: 'Bearer ' + store.user.token
+    },
+    data: passwordData
+  })
+}
+
+const deletePost = () => {
+  console.log('Deleting Post!')
+  return $.ajax({
+    url: config.apiUrl + '/posts/' + store.postId,
+    method: 'DELETE',
+    headers: {
+      Authorization: 'Bearer ' + store.user.token
+    }
+  })
+}
+
+const editPost = (postData) => {
+  console.log('Editing Post!')
+  return $.ajax({
+    url: config.apiUrl + '/posts/' + store.postId,
+    method: 'PATCH',
+    headers: {
+      Authorization: 'Bearer ' + store.user.token
+    },
+    data: postData
   })
 }
 
@@ -64,5 +99,8 @@ module.exports = {
   checkUsername,
   postSubmit,
   getPost,
-  showUserPost
+  showUserPost,
+  changePassword,
+  deletePost,
+  editPost
 }

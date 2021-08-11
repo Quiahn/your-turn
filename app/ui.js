@@ -25,10 +25,12 @@ const onLogInSuccess = (res) => {
   $('form').trigger('reset')
   localStorage.setItem('user', JSON.stringify(res.user))
   console.log(localStorage.getItem('user'))
-  store.token = res.user.token
-  store.userId = res.user._id
+  store.user.token = res.user.token
+  store.user._id = res.user._id
   $('#log-in-modal-btn').trigger('click')
+  $('#signed-in-as').text(`Signed In As: ${res.user.username}`)
   hideAndShow('#landing-page', '#home-page')
+  hideAndShow('.not-signed-in', '.signed-in')
 }
 
 const onLogInFailure = () => {
@@ -38,8 +40,8 @@ const onLogInFailure = () => {
 }
 
 const checkUser = () => {
-  console.log(store.userId)
-  console.log(store.token)
+  console.log(store.user._id)
+  console.log(store.user.token)
   console.log(new Date().getDate())
 }
 
@@ -63,18 +65,90 @@ const onCheckUsernameFailure = () => {
   $('#log-in-error-msg').text('Username Check Failed!')
 }
 
-const onPostSubmitSuccess = (res) => {
+const onSubmitPostSuccess = (res) => {
   console.log('Post Submit Completed!')
   console.log(res)
+  $('form').trigger('reset')
+  $('#post-submitted').show()
+  setTimeout(() => $('#post-submitted').hide(), 3000)
 }
 
-const onPostSubmitFailure = () => {
+const onSubmitPostFailure = () => {
   console.log('Post Submit Failed!')
 }
 
 const onGetPostSuccess = (res) => {
+  const postArr = res.posts
+
+  // eslint-disable-next-line space-before-function-paren
+  function compare(a, b) {
+    if (a.number < b.number) {
+      return -1
+    }
+    if (a.number > b.number) {
+      return 1
+    }
+    return 0
+  }
+
+  postArr.sort(compare)
+
   console.log('Get Post Completed!')
-  console.log(res)
+  console.log(postArr)
+  postArr.forEach((post, i) => {
+    if (i < 3) {
+      $('#top-posts').append(`
+      <div id="${post.owner.username}" class="row mx-auto my-3 border border-qPrimary rounded shadow-sm ${post.owner.username}-${i + 1}">
+
+      <div class="col-3 border border-qPrimary rounded">
+        <p class="mx-5 pt-2  d-flex h5 text-qDark">${post.owner.username}</p>
+        <p class="mx-5 d-flex h6 text-qDarkSecondary">Rank: ${i + 1}</p>
+        <p class="mx-5 pb-4 d-flex h6 text-qDarkSecondary">Number: ${post.number}</p>
+      </div>
+
+      <div class="col">
+        <p class="h6 d-flex text-qDarkSecondary p-0 m-0">Post</p>
+        <p class="text-black">${post.content}</p>
+      </div>
+
+    </div>
+      `)
+
+      $('#top-posts-landing').append(`
+      <div id="${post.owner.username}-landing" class="row mx-auto landing border border-qPrimary rounded shadow-sm ${post.owner.username}-${i + 1}-landing">
+
+      <div class="col-3 border border-qPrimary rounded">
+        <p class="mx-5 pt-2  d-flex h5 text-qDark">${post.owner.username}</p>
+        <p class="mx-5 d-flex h6 text-qDarkSecondary">Rank: ${i + 1}</p>
+        <p class="mx-5 pb-4 d-flex h6 text-qDarkSecondary">Number: ${post.number}</p>
+      </div>
+
+      <div class="col">
+        <p class="h6 d-flex text-qDarkSecondary p-0 m-0">Post</p>
+        <p class="text-black">${post.content}</p>
+      </div>
+
+    </div>
+      `)
+    } else {
+      $('#posts-div').append(`
+      <div id="${post.owner.username}" class="row mx-auto my-3 border border-qPrimary rounded shadow-sm ${post.owner.username}-${i + 1}">
+
+      <div class="col-3 border border-qPrimary rounded">
+        <p class="mx-5 pt-2 d-flex h5 text-qDark">${post.owner.username}</p>
+        <p class="mx-5 d-flex h6 text-qDarkSecondary">Rank: ${i + 1}</p>
+        <p class="mx-5 pb-4 d-flex h6 text-qDarkSecondary">Number: ${post.number}</p>
+      </div>
+
+      <div class="col">
+        <p class="h6 d-flex text-qDarkSecondary p-0 m-0">Post</p>
+        <p class="text-black">${post.content}</p>
+      </div>
+
+    </div>
+      `)
+    }
+  })
 }
 
 const onGetPostFailure = () => {
@@ -83,13 +157,62 @@ const onGetPostFailure = () => {
 }
 
 const onShowUserPostSuccess = (res) => {
+  const postArr = res.posts
   console.log('Show User Post Completed!')
-  console.log(res)
+  console.log(postArr)
+  if (postArr.length !== 0) {
+    const post = postArr[0]
+    store.postId = post._id
+    $('#post-form').hide()
+    $('#welcome-msg').text('Your Post')
+    $(`#${post.owner.username}`).appendTo('#your-post')
+    $('.options').show()
+  } else {
+    $('#post-form').show()
+    $('#welcome-msg').text('You haven\'t posted yet')
+    $('#edit-btn').hide()
+    $('#delete-btn').hide()
+  }
 }
 
 const onShowUserPostFailure = () => {
   console.log('Show User Post Failed!')
   $('#error-msg').text('Show User Post Failed!')
+}
+
+const onChangePasswordSuccess = () => {
+  $('#change-password-error-msg').text('Password Changed!')
+  $('form').trigger('reset')
+  console.log('Password Change Complete!')
+}
+
+const onChangePasswordFailure = () => {
+  console.log('Password Change Failed!')
+  $('#change-password-error-msg').text('Password Change Failed!')
+}
+
+const onDeletePostSuccess = () => {
+  $('#post-submitted').text('Post Deleted')
+  $('#post-submitted').show()
+  setTimeout(() => { $('#post-submitted').hide().text('Post Submitted') }, 3000)
+}
+
+const onDeletePostFailure = () => {
+  console.log('Post Submit Failed!')
+}
+
+const onEditPostSuccess = () => {
+  $()
+  $('#post-submitted').text('Post Edited')
+  $('#post-submitted').show()
+  setTimeout(() => { $('#post-submitted').hide().text('Post Submitted') }, 3000)
+  $('#edit-input').val('')
+  $('.edit-form').hide()
+}
+
+const onEditPostFailure = () => {
+  console.log('Post Edit Failed!')
+  $('#edit-input').empty()
 }
 
 module.exports = {
@@ -101,10 +224,16 @@ module.exports = {
   onCheckUsernameFailure,
   hideAndShow,
   checkUser,
-  onPostSubmitSuccess,
-  onPostSubmitFailure,
+  onSubmitPostSuccess,
+  onSubmitPostFailure,
   onGetPostSuccess,
   onGetPostFailure,
   onShowUserPostSuccess,
-  onShowUserPostFailure
+  onShowUserPostFailure,
+  onChangePasswordSuccess,
+  onChangePasswordFailure,
+  onDeletePostSuccess,
+  onDeletePostFailure,
+  onEditPostSuccess,
+  onEditPostFailure
 }
