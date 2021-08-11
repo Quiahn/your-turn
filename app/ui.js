@@ -113,7 +113,7 @@ const onGetPostSuccess = (res) => {
 
     </div>
       `)
-
+      $('#top-posts-landing').empty()
       $('#top-posts-landing').append(`
       <div id="${post.owner.username}-landing" class="row mx-auto landing border border-qPrimary rounded shadow-sm ${post.owner.username}-${i + 1}-landing">
 
