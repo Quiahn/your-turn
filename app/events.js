@@ -16,14 +16,14 @@ const onSignUp = (event) => {
 const onLogIn = (event) => {
   event.preventDefault()
   const data = getFormFields(event.target)
-  console.log(data)
+  // console.log(data)
 
   api.logIn(data)
     .then(ui.onLogInSuccess)
+    .then(() => { $('#your-post').empty(); $('#posts-div').empty(); $('#top-posts').empty() })
+    .then(setTimeout(() => onGetPost(), 1000))
+    .then(setTimeout(() => onShowUserPost(), 1000))
     .catch(ui.onLogInFailure)
-
-  setTimeout(onGetPost, 1000)
-  setTimeout(onShowUserPost, 1000)
 }
 
 const onLogOut = () => {
@@ -31,11 +31,12 @@ const onLogOut = () => {
   ui.hideAndShow('.signed-in', '.not-signed-in')
   $('form').trigger('reset')
   localStorage.setItem('user', null)
-  store.user.token = ''
-  store.user._id = ''
+  store.user = {}
   $('#your-post').empty()
   $('#posts-div').empty()
   $('#top-posts').empty()
+  $('#top-posts-landing').empty()
+  setTimeout(() => onGetPost(), 1000)
 }
 
 const onCheckUsername = () => {
@@ -80,7 +81,7 @@ const onShowUserPost = () => {
 const onChangePassword = (event) => {
   event.preventDefault()
   const data = getFormFields(event.target)
-  console.log(data)
+  // console.log(data)
 
   api.changePassword(data)
     .then(ui.onChangePasswordSuccess)

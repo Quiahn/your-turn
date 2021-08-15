@@ -31,6 +31,4 @@ $(() => {
   $('#log-in-form').on('submit', events.onLogIn)
   $('#sign-up-username').keyup(events.onCheckUsername)
   $('#post-form').on('submit', events.onSubmitPost)
-  // TEST
-  $('#check-user').on('click', ui.checkUser)
 })

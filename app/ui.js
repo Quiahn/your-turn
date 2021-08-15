@@ -7,7 +7,7 @@ const hideAndShow = (hide, show) => {
 
 const onSignUpSuccess = (res) => {
   $('.sign-up-error-msg').text('')
-  console.log('Sign Up Complete!')
+  // console.log('Sign Up Complete!')
   $('#sign-up-modal-btn').trigger('click')
   $('form').trigger('reset')
   $('#log-in-modal-btn').trigger('click')
@@ -21,12 +21,10 @@ const onSignUpFailure = () => {
 
 const onLogInSuccess = (res) => {
   $('.log-in-error-msg').text('')
-  console.log('Log In Complete!')
+  // console.log('Log In Complete!')
+  store.user = res.user
   $('form').trigger('reset')
   localStorage.setItem('user', JSON.stringify(res.user))
-  console.log(localStorage.getItem('user'))
-  store.user.token = res.user.token
-  store.user._id = res.user._id
   $('#log-in-modal-btn').trigger('click')
   $('#signed-in-as').text(`Signed In As: ${res.user.username}`)
   hideAndShow('#landing-page', '#home-page')
@@ -34,21 +32,15 @@ const onLogInSuccess = (res) => {
 }
 
 const onLogInFailure = () => {
-  console.log('Log In Failed!')
+  // console.log('Log In Failed!')
   $('#log-in-error-msg').text('Log In Failed!')
   $('form').trigger('reset')
-}
-
-const checkUser = () => {
-  console.log(store.user._id)
-  console.log(store.user.token)
-  console.log(new Date().getDate())
 }
 
 const onCheckUsernameSuccess = (res) => {
   const username = $('#sign-up-username').val()
   const msg = $('#user-available')
-  console.log(username)
+  // console.log(username)
   res.users.forEach(ele => {
     ele === username ? msg.text('Not Available') : msg.text('Pending')
   })
@@ -61,20 +53,21 @@ const onCheckUsernameSuccess = (res) => {
 }
 
 const onCheckUsernameFailure = () => {
-  console.log('Username Check Failed!')
+  // console.log('Username Check Failed!')
   $('#log-in-error-msg').text('Username Check Failed!')
 }
 
 const onSubmitPostSuccess = (res) => {
-  console.log('Post Submit Completed!')
-  console.log(res)
+  // console.log('Post Submit Completed!')
   $('form').trigger('reset')
   $('#post-submitted').show()
   setTimeout(() => $('#post-submitted').hide(), 3000)
 }
 
 const onSubmitPostFailure = () => {
-  console.log('Post Submit Failed!')
+  // console.log('Post Submit Failed!')
+  $('#error-msg').text('Post Submit Failed!')
+  setTimeout(() => $('#error-msg').hide(), 3000)
 }
 
 const onGetPostSuccess = (res) => {
@@ -93,8 +86,8 @@ const onGetPostSuccess = (res) => {
 
   postArr.sort(compare)
 
-  console.log('Get Post Completed!')
-  console.log(postArr)
+  // console.log('Get Post Completed!')
+  // console.log(postArr)
   postArr.forEach((post, i) => {
     if (i < 3) {
       $('#top-posts').append(`
@@ -113,7 +106,6 @@ const onGetPostSuccess = (res) => {
 
     </div>
       `)
-      $('#top-posts-landing').empty()
       $('#top-posts-landing').append(`
       <div id="${post.owner.username}-landing" class="row mx-auto landing border border-qPrimary rounded shadow-sm ${post.owner.username}-${i + 1}-landing">
 
@@ -152,14 +144,15 @@ const onGetPostSuccess = (res) => {
 }
 
 const onGetPostFailure = () => {
-  console.log('Get Post Failed!')
+  // console.log('Get Post Failed!')
   $('#error-msg').text('Get Post Failed!')
+  setTimeout(() => $('#error-msg').hide(), 3000)
 }
 
 const onShowUserPostSuccess = (res) => {
   const postArr = res.posts
-  console.log('Show User Post Completed!')
-  console.log(postArr)
+  // console.log('Show User Post Completed!')
+  // console.log(postArr)
   if (postArr.length !== 0) {
     const post = postArr[0]
     store.postId = post._id
@@ -176,18 +169,19 @@ const onShowUserPostSuccess = (res) => {
 }
 
 const onShowUserPostFailure = () => {
-  console.log('Show User Post Failed!')
+  // console.log('Show User Post Failed!')
   $('#error-msg').text('Show User Post Failed!')
+  setTimeout(() => $('#error-msg').hide(), 3000)
 }
 
 const onChangePasswordSuccess = () => {
   $('#change-password-error-msg').text('Password Changed!')
   $('form').trigger('reset')
-  console.log('Password Change Complete!')
+  // console.log('Password Change Complete!')
 }
 
 const onChangePasswordFailure = () => {
-  console.log('Password Change Failed!')
+  // console.log('Password Change Failed!')
   $('#change-password-error-msg').text('Password Change Failed!')
 }
 
@@ -198,7 +192,9 @@ const onDeletePostSuccess = () => {
 }
 
 const onDeletePostFailure = () => {
-  console.log('Post Submit Failed!')
+  // console.log('Post Submit Failed!')
+  $('#error-msg').text('Delete Post Failed!')
+  setTimeout(() => $('#error-msg').hide(), 3000)
 }
 
 const onEditPostSuccess = () => {
@@ -211,8 +207,10 @@ const onEditPostSuccess = () => {
 }
 
 const onEditPostFailure = () => {
-  console.log('Post Edit Failed!')
+  // console.log('Post Edit Failed!')
   $('#edit-input').empty()
+  $('#error-msg').text('Edit Post Failed!')
+  setTimeout(() => $('#error-msg').hide(), 3000)
 }
 
 module.exports = {
@@ -223,7 +221,6 @@ module.exports = {
   onCheckUsernameSuccess,
   onCheckUsernameFailure,
   hideAndShow,
-  checkUser,
   onSubmitPostSuccess,
   onSubmitPostFailure,
   onGetPostSuccess,

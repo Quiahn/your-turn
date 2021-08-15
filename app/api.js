@@ -2,7 +2,7 @@ const config = require('./config')
 const store = require('./store')
 
 const signUp = (data) => {
-  console.log('Signing Up!')
+  // console.log('Signing Up!')
   return $.ajax({
     url: config.apiUrl + '/sign-up',
     method: 'POST',
@@ -11,7 +11,7 @@ const signUp = (data) => {
 }
 
 const logIn = (data) => {
-  console.log('Logging In!')
+  // console.log('Logging In!')
   return $.ajax({
     url: config.apiUrl + '/sign-in',
     method: 'POST',
@@ -20,7 +20,7 @@ const logIn = (data) => {
 }
 
 const checkUsername = () => {
-  console.log('Checking Username!')
+  // console.log('Checking Username!')
   return $.ajax({
     url: config.apiUrl + '/users',
     method: 'GET'
@@ -28,7 +28,7 @@ const checkUsername = () => {
 }
 
 const postSubmit = (postData) => {
-  console.log('Posting!')
+  // console.log('Posting!')
   return $.ajax({
     url: config.apiUrl + '/posts',
     method: 'POST',
@@ -40,7 +40,7 @@ const postSubmit = (postData) => {
 }
 
 const getPost = () => {
-  console.log('Getting Posts!')
+  // console.log('Getting Posts!')
   return $.ajax({
     url: config.apiUrl + '/posts',
     method: 'GET'
@@ -48,7 +48,7 @@ const getPost = () => {
 }
 
 const showUserPost = () => {
-  console.log('Checking If The User Has A Post!')
+  // console.log('Checking If The User Has A Post!')
   return $.ajax({
     url: config.apiUrl + '/posts/' + store.user._id,
     method: 'GET',
@@ -59,7 +59,7 @@ const showUserPost = () => {
 }
 
 const changePassword = (passwordData) => {
-  console.log('Changing Password!')
+  // console.log('Changing Password!')
   return $.ajax({
     url: config.apiUrl + '/change-password',
     method: 'PATCH',
@@ -71,7 +71,7 @@ const changePassword = (passwordData) => {
 }
 
 const deletePost = () => {
-  console.log('Deleting Post!')
+  // console.log('Deleting Post!')
   return $.ajax({
     url: config.apiUrl + '/posts/' + store.postId,
     method: 'DELETE',
@@ -82,7 +82,7 @@ const deletePost = () => {
 }
 
 const editPost = (postData) => {
-  console.log('Editing Post!')
+  // console.log('Editing Post!')
   return $.ajax({
     url: config.apiUrl + '/posts/' + store.postId,
     method: 'PATCH',
