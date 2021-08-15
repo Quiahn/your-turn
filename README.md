@@ -20,7 +20,3 @@ As a user:
 ## `Wireframes`
 
 ![Wireframe image](https://i.imgur.com/An4eB0X.jpg)
-
-## `ERD (entity relationship diagram)`
-
-![ERD image](https://i.imgur.com/xkNmbFv.png)
