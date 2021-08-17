@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Your Turn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Do not add `link` tags-->
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Do not add `script` tags-->
+  <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
+  <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
+</head>
+
+
+<body>
+
+
+  <!-- NAV -->
+  <div id="navbar" class="bg-qSecondary border border-qPrimary fixed-top">
+    <img src="https://i.imgur.com/kqfvOz9.png" class="mx-auto nav-logo p-00" alt="Your Turn Logo">
+    <div class="d-flex justify-content-end align-items-center p-3">
+      <div class="d-flex">
+        <p id="signed-in-as" class="signed-in h6 mx-5 my-auto"></p>
+        <button class="btn btn-qDark mx-1 signed-in" id="change-password-btn" data-bs-toggle="modal"
+          data-bs-target="#changePasswordModal">Change Password</button>
+        <button class="btn btn-qDark signed-in" id="log-out-btn">Log Out</button>
+
+        <button type="button" id="sign-up-modal-btn" class="btn btn-qDark mx-1 not-signed-in" data-bs-toggle="modal"
+          data-bs-target="#signUpModal">
+          Sign up
+        </button>
+
+        <button type="button" id="log-in-modal-btn" class="btn btn-qDark not-signed-in" data-bs-toggle="modal"
+          data-bs-target="#logInModal">
+          Log in
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LANDING PAGE -->
+
+  <div id="landing-page">
+
+    <div class="bgGradient">
+      <div class="container vh-100 d-flex text-center">
+        <img src="https://i.imgur.com/664svCb.png" class="lg-logo mx-auto my-auto logo" alt="Your Turn Logo">
+        <p class="scroll-down h5 text-qDark">Scroll Down</p>
+      </div>
+
+      <div class="container vh-100 text-center">
+        <p class="h1 text-qDark landing-top-text">Top Posts Today</p>
+        <div id="top-posts-landing" class="my-5"></div>
+      </div>
+
+      <!-- <div class="container vh-100 d-flex mx-auto my-auto">
+        <p class="h1 text-qDark">What is your turn?</p>
+        <p class="h6 text-qDark">Your Turn is a </p>
+      </div> -->
+    </div>
+
+    <!-- SIGN UP -->
+
+    <div id="sign-up-form">
+      <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header bg-qDark border">
+              <h5 class="modal-title text-white" id="signUpModalLabel">Sign Up</h5>
+            </div>
+            <div class="modal-body text-center">
+              <p id="sign-up-error-msg"></p>
+
+              <form>
+                <label for="sign-up-username" class="mt-2">Username</label> <br>
+                <input type="text" name="credentials[username]" id="sign-up-username" placeholder="John Doe" class="m-2"
+                  required>
+                <br>
+
+                <p id="user-available" class="text-muted m-0"></p>
+
+                <label for="sign-up-password" class="mt-2">Password</label> <br>
+                <input type="password" name="credentials[password]" id="sign-up-password" placeholder="********"
+                  class="m-2" required>
+                <br>
+
+                <label for="sign-up-password-confirm" class="mt-2">Confirm Password</label> <br>
+                <input type="password" name="credentials[password_confirmation]" id="sign-up-password-confirm"
+                  placeholder="********" class="m-2" required>
+                <br>
+
+                <button type="submit" class="btn btn-qDark mt-4 m-2" id="sign-up-submit" disabled>Submit</button>
+
+                <button type="button" class="btn btn-qDarkSecondary tDarkSecondary mt-4 m-2"
+                  data-bs-dismiss="modal">Close</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOG IN -->
+
+    <div id="log-in-form">
+      <div class="modal fade" id="logInModal" tabindex="-1" aria-labelledby="logInModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header bg-qDark border">
+              <h5 class="modal-title text-white" id="logInModalLabel">Log In</h5>
+            </div>
+            <div class="modal-body text-center">
+              <p id="log-in-error-msg"></p>
+
+              <form>
+                <label for="log-in-username" class="mt-2">Username</label> <br>
+                <input type="text" name="credentials[username]" id="log-in-username" placeholder="John Doe" class="m-2"
+                  required>
+                <br>
+
+                <label for="log-in-password" class="mt-2">Password</label> <br>
+                <input type="password" name="credentials[password]" id="log-in-password" placeholder="********"
+                  class="m-2" required>
+                <br>
+
+                <button type="submit" class="btn btn-qDark mt-4 m-2" id="log-in-submit">Submit</button>
+
+                <button type="button" class="btn btn-qDarkSecondary tDarkSecondary mt-4 m-2"
+                  data-bs-dismiss="modal">Close</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- HOME PAGE -->
+
+  <div id="home-page" class="text-center">
+
+    <div class="container d-inline-block vh-100">
+
+      <div class="row rank-post-row">
+
+        <div class="col mx-5">
+          <div class="h3 h-100 text-qDark">
+            <p id="error-msg"></p>
+            <p id="welcome-msg" class="h3 text-qDark d-flex py-3 m-0">You haven't posted yet</p>
+            <p id="post-submitted">Post Submitted</p>
+            <form id="post-form">
+              <label for="post-content" class="h6 d-flex text-qDarkSecondary p-0 m-0">Post</label>
+              <textarea name="post-content" id="post-input"
+                class="form-control border border-qPrimary shadow-sm"></textarea>
+              <input class="btn btn-qPrimary m-4 mx-auto" type="submit" value="Post">
+            </form>
+
+            <div id="your-post"></div>
+
+            <button id="edit-btn" class="edit btn btn-qPrimary options">Edit</button>
+            <button id="delete-btn" class="btn btn-qPrimary options">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row edit-form">
+        <label for="edit-content" class="h6 text-qDarkSecondary p-0">Edit</label> <br>
+        <textarea name="edit-content" id="edit-input" class="edit border border-qPrimary shadow-sm"></textarea>
+        <div class="col">
+          <button id="edit-save" class="btn btn-qPrimary">Save</button>
+          <button id="edit-cancel" class="btn btn-qPrimary">Cancel</button>
+        </div>
+      </div>
+
+      <p class="h3 text-qDark d-flex pt-3 m-0">Top Post</p>
+      <div id="top-posts"></div>
+
+      <p class="h1 d-flex position-absolute more-post text-qDark">More Posts</p>
+    </div>
+
+    <div id="posts-div" class="container">
+
+    </div>
+
+    <!-- CHANGE PASSWORD -->
+
+    <div id="change-password-form">
+      <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header bg-qDark border">
+              <h5 class="modal-title text-white" id="changePasswordModalLabel">Change Password</h5>
+            </div>
+            <div class="modal-body text-center">
+              <p id="change-password-error-msg"></p>
+
+              <form>
+                <label for="change-password-old" class="mt-2">Current Password</label> <br>
+                <input type="password" name="passwords[old]" id="change-password-old" placeholder="********" class="m-2"
+                  required>
+                <br>
+
+                <label for="change-password-new" class="mt-2">New Password</label> <br>
+                <input type="password" name="passwords[new]" id="change-password-new" placeholder="********" class="m-2"
+                  required>
+                <br>
+
+                <button type="submit" class="btn btn-qDark mt-4 m-2" id="change-password-submit">Submit</button>
+
+                <button type="button" class="btn btn-qDarkSecondary tDarkSecondary mt-4 m-2"
+                  data-bs-dismiss="modal">Close</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>
