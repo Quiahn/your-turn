@@ -40,10 +40,12 @@ const onLogInFailure = () => {
 const onCheckUsernameSuccess = (res) => {
   const username = $('#sign-up-username').val()
   const msg = $('#user-available')
+  msg.text('Pending')
   // console.log(username)
   res.users.forEach(ele => {
-    ele === username ? msg.text('Not Available') : msg.text('Pending')
+    ele === username && msg.text('Not Available')
   })
+  console.log(msg.text())
   if (msg.text() === 'Pending') {
     msg.text('Available')
     $('#sign-up-submit').prop('disabled', false)
